@@ -4,7 +4,7 @@ select p.ProductID, p.Name, p.Color, p.ListPrice
 
 select ProductID, Name, Color, ListPrice
 from production.Product 
-where ListPrice <>  
+where ListPrice <>  0
 
 
 
@@ -71,4 +71,5 @@ order by name
 
 select distinct color 
 from Production.Product 
+
 order by color desc
