@@ -1,0 +1,74 @@
+1.How many products can you find in the Production.Product table?
+-> select count(*) as ProductCount
+from Production.Product
+
+2. Write a query that retrieves the number of products in the Production.Product table that are included in a subcategory. The rows that have NULL in column ProductSubcategoryID are considered to not be a part of any subcategory.
+-> select count(*) as Subcategory
+   from Production.Product 
+  where ProductSubcategoryID is not null
+3. How many Products reside in each SubCategory? Write a query to display the results with the following titles.
+ProductSubcategoryID CountedProducts
+-> select ProductSubcategoryID, count(*) as CountedProducts
+   from Production.Product 
+   where ProductSubcategoryID is not null
+   Group by ProductSubcategoryID
+
+4. How many products that do not have a product subcategory.
+-> select count(*) as ProductwithoutSubcategory
+from Production.Product 
+where ProductSubcategoryID is null
+
+5.      Write a query to list the sum of products quantity in the Production.ProductInventory table.
+-> select sum(Quantity) as TotalQuantity
+from Production.ProductInventory
+
+6.    Write a query to list the sum of products in the Production.ProductInventory table and LocationID set to 40 and limit the result to include just summarized quantities less than 100.
+
+              ProductID    TheSum
+
+    -> select productid , sum(Quantity) as TheSum
+from Production.ProductInventory
+where LocationID = 40 
+group by productid
+having  sum(Quantity) < 100
+
+7.    Write a query to list the sum of products with the shelf information in the Production.ProductInventory table and LocationID set to 40 and limit the result to include just summarized quantities less than 100
+
+    Shelf      ProductID    TheSum
+
+    -> select Shelf ,productid , sum(Quantity) as TheSum
+from Production.ProductInventory
+where LocationID = 40 
+group by Shelf,productid 
+having  sum(Quantity) < 100
+
+8. Write the query to list the average quantity for products where column LocationID has the value of 10 from the table Production.ProductInventory table.
+
+-> select avg(Quantity) as AverageQuantity
+from Production.ProductInventory
+where LocationID = 10
+
+9.    Write query  to see the average quantity  of  products by shelf  from the table Production.ProductInventory
+
+    ProductID   Shelf      TheAvg
+
+    -> select productid,Shelf, avg(Quantity) as TheAvg
+from Production.ProductInventory
+group by productid,Shelf
+
+10.  Write query  to see the average quantity  of  products by shelf excluding rows that has the value of N/A in the column Shelf from the table Production.ProductInventory
+
+    ProductID   Shelf      TheAvg
+
+    -> select productid,Shelf, avg(Quantity) as TheAvg
+from Production.ProductInventory
+where shelf is not null
+group by productid,Shelf
+
+11.  List the members (rows) and average list price in the Production.Product table. This should be grouped independently over the Color and the Class column. Exclude the rows where Color or Class are null.
+
+    Color                        Class              TheCount          AvgPrice
+-> select color, class, count(*) as TheCount, avg(listprice) as AvgPrice
+from Production.Product
+where color is not null and class is not null
+group by color,class
