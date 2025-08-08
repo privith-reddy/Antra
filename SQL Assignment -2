@@ -72,3 +72,18 @@ group by productid,Shelf
 from Production.Product
 where color is not null and class is not null
 group by color,class
+
+
+12.   Write a query that lists the country and province names from person. CountryRegion and person. StateProvince tables. Join them and produce a result set similar to the following.
+    Country                        Province
+
+-> select cr.Name as country,sp.Name as province
+   from person.CountryRegion cr join person.StateProvince sp on cr.CountryRegionCode = sp.CountryRegionCode 
+
+13.  Write a query that lists the country and province names from person. CountryRegion and person. StateProvince tables and list the countries filter them by Germany and Canada. Join them and produce a result set similar to the following.
+
+    Country                        Province
+
+-> select cr.Name as country,sp.Name as province
+from person.CountryRegion cr join person.StateProvince sp on cr.CountryRegionCode = sp.CountryRegionCode 
+where cr.name in ('Germany','Canada')
